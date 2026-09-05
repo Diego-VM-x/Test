@@ -18,5 +18,30 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var root = document.getElementById("root");
+          if (!root || root.children.length > 0) return;
+          var esArchivo = window.location.protocol === "file:";
+          root.innerHTML =
+            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Jost,Trebuchet MS,sans-serif;color:#3a222c;">' +
+            '<div style="max-width:520px;text-align:center;border:1px solid rgba(212,175,55,.5);background:#fff;padding:48px 40px;border-radius:16px;box-shadow:0 24px 60px rgba(51,16,29,.12);">' +
+            '<div style="font-family:Cinzel,Georgia,serif;font-size:26px;font-weight:700;color:#33101d;">Luz Divina</div>' +
+            '<div style="margin-top:6px;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#b8932c;">Bisutería católica</div>' +
+            '<p style="margin-top:22px;line-height:1.6;font-size:15px;">' +
+            (esArchivo
+              ? "Este sitio no puede abrirse con doble clic: el navegador bloquea su JavaScript en discos locales."
+              : "La aplicación no terminó de cargar. Recarga la página o revisa tu conexión.") +
+            "</p>" +
+            (esArchivo
+              ? '<p style="margin-top:14px;font-size:14px;line-height:1.7;">Para verlo en tu PC, abre una terminal en la carpeta del proyecto y ejecuta:</p>' +
+                '<code style="display:block;margin-top:14px;background:#33101d;color:#f0dd9d;padding:14px;border-radius:8px;font-size:14px;">npm run dev</code>' +
+                '<p style="margin-top:12px;font-size:13px;">Después abre <strong>http://localhost:3000</strong> en tu navegador. Si quieres ver la versión final: <code style="background:#f3ead3;padding:2px 6px;border-radius:4px;">npm run build</code> y luego <code style="background:#f3ead3;padding:2px 6px;border-radius:4px;">npx vite preview</code>.</p>'
+              : "") +
+            "</div></div>";
+        }, 1800);
+      });
+    </script>
   </body>
 </html>
