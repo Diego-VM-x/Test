@@ -1,97 +1,54 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>coder-app-name</title>
+    <meta name="description" content="Epikas — Bisutería católica artesanal: rosarios, medallas, collares, anillos y pulseras hechos con fe." />
+    <title>Epikas · Bisutería Católica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:ital,wght@0,300..700;1,400&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* 内联样式确保主题色立即生效，避免闪烁 */
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-      }
-      html.light,
-      html.light body {
-        background-color: #ffffff !important;
-        color: #000000;
-      }
-      html.dark,
-      html.dark body {
-        background-color: #1a1a1a !important;
-        color: #ffffff;
-      }
+      html, body { margin: 0; padding: 0; background-color: #f8f2e3; }
     </style>
-    <script>
-      // 在 React 加载前立即设置主题，避免闪烁
-      (function () {
-        const isInIframe = window.self !== window.top;
-
-        function applyThemeToDOM(theme) {
-          document.documentElement.classList.remove("light", "dark");
-          document.documentElement.classList.add(theme);
-          document.documentElement.setAttribute("data-theme", theme);
-        }
-
-        if (isInIframe) {
-          // 监听父窗口主动推送的主题消息
-          window.addEventListener("message", function (event) {
-            if (event.data && typeof event.data.theme === "string") {
-              const theme = event.data.theme;
-              if (theme === "light" || theme === "dark") {
-                applyThemeToDOM(theme);
-              }
-            }
-          });
-        } else {
-          // 非 iframe 环境，使用默认 light 主题
-          applyThemeToDOM("light");
-        }
-      })();
-    </script>
-      <script>
-      (function () {
-        if (window.self === window.top) return;
-        var reported = {};
-        window.addEventListener("error", function (event) {
-          // 资源加载失败的 error 事件没有 message，此处仅上报 JS 运行时错误
-          if (!event || !event.message) return;
-          var key =
-            event.message + "|" + (event.filename || "") + "|" + (event.lineno || 0);
-          if (reported[key]) return; // 相同错误只上报一次，避免渲染循环刷屏
-          reported[key] = true;
-          try {
-            window.parent.postMessage(
-              {
-                type: "sandbox-runtime-error",
-                payload: {
-                  message: String(event.message).slice(0, 500),
-                  filename: event.filename || "",
-                  lineno: event.lineno || 0,
-                  colno: event.colno || 0,
-                  stack:
-                    event.error && event.error.stack
-                      ? String(event.error.stack).slice(0, 2000)
-                      : ""
-                }
-              },
-              "*"
-            );
-          } catch (e) {
-            /* 上报失败不影响页面运行 */
-          }
-        });
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var root = document.getElementById("root");
+          if (!root || root.children.length > 0) return;
+          var esArchivo = window.location.protocol === "file:";
+          var titulo =
+            '<div style="font-family:Cinzel,Georgia,serif;font-size:26px;font-weight:700;letter-spacing:.2em;color:#33101d;">EPIKAS</div>' +
+            '<div style="margin-top:6px;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#b8932c;">Bisutería católica</div>';
+          var pasosGithub =
+            '<ol style="text-align:left;margin:18px 0 0;padding-left:20px;font-size:13.5px;line-height:1.75;color:#3a222c;">' +
+            "<li>En tu repositorio, pestaña <strong>Actions</strong>: el flujo «Publicar en GitHub Pages» debe estar en <strong>verde</strong>. Si está amarillo, espera; si está rojo o no aparece, vuelve a hacer <code style=\"background:#f3ead3;padding:1px 5px;border-radius:4px;\">git push</code>.</li>" +
+            "<li>Ve a <strong>Settings → Pages</strong> y en «Build and deployment → Source» elige <strong>GitHub Actions</strong> (no «Deploy from a branch»). Este es el error más común.</li>" +
+            "<li>Abre la dirección completa, que incluye el nombre del repo: <code style=\"background:#f3ead3;padding:1px 5px;border-radius:4px;\">https://TU-USUARIO.github.io/NOMBRE-DEL-REPO/</code></li>" +
+            "<li>Recarga con <strong>Ctrl + Shift + R</strong> (o Cmd + Shift + R en Mac) para evitar una copia vieja guardada.</li>" +
+            "</ol>" +
+            '<p style="margin-top:14px;font-size:12.5px;color:#3a222c99;">Guía completa en el archivo DEPLOY.md del repositorio. Si el sitio ya funcionaba antes, con el paso 4 suele bastar.</p>';
+          var pasosLocal =
+            '<p style="margin-top:14px;font-size:14px;line-height:1.7;">Para verlo en tu PC, abre una terminal en la carpeta del proyecto y ejecuta:</p>' +
+            '<code style="display:block;margin-top:14px;background:#33101d;color:#f0dd9d;padding:14px;border-radius:8px;font-size:14px;">npm run dev</code>' +
+            '<p style="margin-top:12px;font-size:13px;">Después abre <strong>http://localhost:3000</strong> en tu navegador. Si quieres ver la versión final: <code style="background:#f3ead3;padding:2px 6px;border-radius:4px;">npm run build</code> y luego <code style="background:#f3ead3;padding:2px 6px;border-radius:4px;">npx vite preview</code>.</p>';
+          root.innerHTML =
+            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Jost,Trebuchet MS,sans-serif;color:#3a222c;">' +
+            '<div style="max-width:540px;border:1px solid rgba(212,175,55,.5);background:#fff;padding:48px 40px;border-radius:16px;box-shadow:0 24px 60px rgba(51,16,29,.12);">' +
+            titulo +
+            (esArchivo
+              ? '<p style="margin-top:22px;line-height:1.6;font-size:15px;">Este sitio no puede abrirse con doble clic: el navegador bloquea su JavaScript en discos locales.</p>' + pasosLocal
+              : '<p style="margin-top:22px;line-height:1.6;font-size:15px;">La página está publicada, pero la aplicación no cargó. Casi siempre es la configuración de GitHub Pages. Revisa en este orden:</p>' + pasosGithub) +
+            "</div></div>";
+        }, 1800);
+      });
+    </script>
   </body>
 </html>
